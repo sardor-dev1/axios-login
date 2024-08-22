@@ -1,0 +1,8 @@
+.MuiButtonBase-root{
+    border: 1px solid;
+    &:hover {
+        background: transparent;
+        color: #C3996B;
+        border-color: #C3996B;
+    }
+}
