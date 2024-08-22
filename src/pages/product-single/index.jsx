@@ -1,6 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import ImageGallery from "react-image-gallery";
+import "./index.scss";
+
+// import "~react-image-gallery/styles/scss/image-gallery.scss";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
@@ -16,14 +21,30 @@ const index = () => {
   const dispatch = useDispatch();
   const product = useSelector((store) => store.productSingle.product);
 
+  const [image, setImage] = useState();
+  const images = [
+    {
+      original: image,
+      thumbnail: image,
+    },
+    {
+      original: image,
+      thumbnail: image,
+    },
+    {
+      original: image,
+      thumbnail: image,
+    },
+  ];
+
   useEffect(() => {
     async function fetchProduct() {
       dispatch(setLoading(true));
       let product = `https://headphones-server.onrender.com/products/${id}`;
-
       try {
         const response = await fetch(product);
         const products = await response.json();
+        setImage(products.image_url);
         dispatch(saveProduct(products));
       } catch (error) {
         dispatch(setError(error.massage));
@@ -44,7 +65,9 @@ const index = () => {
       </button>
       <div className="flex flex-col min-[950px]:flex-row justify-center items-center gap-[30px]">
         <div>
-          <img src={product.image_url} alt={product.name} />
+          <div>
+            <ImageGallery items={images} />
+          </div>
         </div>
         <div>
           <h2 className="py-2 text-[24px] font-semibold">{product.name}</h2>
@@ -58,7 +81,7 @@ const index = () => {
           <Stack spacing={1}>
             <Rating
               name="half-rating-read"
-              value={product.ratings_stars} 
+              value={product.ratings_stars}
               precision={0.5}
               readOnly
             />
