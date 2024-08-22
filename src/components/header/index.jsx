@@ -3,6 +3,7 @@ import "./style.scss";
 import Cart from "../cart/index";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import AccountMenu from "../account";
 
 const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
             <button onClick={() => handleAccount()}>my-acount</button>
           </div>
         </div>
-        <div className="flex items-center pr-2 gap-8">
+        <div className="flex items-center pr-1 gap-8">
           <div>
             <Cart />
           </div>
@@ -57,6 +58,7 @@ const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
               }`}
             />
           </div>
+          <AccountMenu />
         </div>
       </nav>
     </header>
