@@ -2,20 +2,13 @@ import { useState } from "react";
 import "./style.scss";
 import Cart from "../cart/index";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
 import AccountMenu from "../account";
 
 const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
-  const navigate = useNavigate();
   const [searchVisible, setSearchVisible] = useState(false);
   const searchOpen = () => {
     setSearchVisible((prev) => !prev);
   };
-
-  const handleAccount = () => {
-    navigate("/my-account");
-  };
-
   return (
     <header className="w-full text-black">
       <nav className="flex justify-between items-center">
@@ -30,9 +23,6 @@ const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
               <option value="cheap">cheap</option>
               <option value="expensive">expensive</option>
             </select>
-          </div>
-          <div>
-            <button onClick={() => handleAccount()}>my-acount</button>
           </div>
         </div>
         <div className="flex items-center pr-1 gap-8">
