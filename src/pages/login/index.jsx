@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, setUserError } from "../../store/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "daisyui/dist/full.css";
 
 export default function Login() {
@@ -39,10 +39,10 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="flex justify-center items-center h-screen  bg-gray-100">
+      <div className="card w-[500px] bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title">Login</h2>
+          <h2 className="text-[32px] font-semibold text-center">Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-control">
               <label htmlFor="username" className="label">
@@ -72,13 +72,17 @@ export default function Login() {
               />
             </div>
 
-            <button
-              type="submit"
-              className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`}
-              disabled={!(userName && password) || loading}
-            >
-              {loading ? "In process..." : "Login"}
-            </button>
+            <div className="flex justify-between items-center">
+              <button
+                type="submit"
+                className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`}
+                disabled={!(userName && password) || loading}
+              >
+                {loading ? "In process..." : "Login"}
+              </button>
+
+              <Link to={"/registration"}>Registration</Link>
+            </div>
           </form>
         </div>
       </div>

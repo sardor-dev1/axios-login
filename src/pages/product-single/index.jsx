@@ -66,7 +66,7 @@ const index = () => {
       <div className="flex flex-col min-[950px]:flex-row justify-center items-center gap-[30px]">
         <div>
           <div>
-            <ImageGallery items={images} />
+            <ImageGallery slideDuration={450} items={images} />
           </div>
         </div>
         <div>

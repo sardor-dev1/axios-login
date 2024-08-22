@@ -6,7 +6,15 @@ import {
 } from "react-router-dom";
 import App from "../App";
 import ProtectedRoute from "../components/protected-route";
-import { Products, Cart, SingleProduct, Main, Login, MyAccount } from "@pages";
+import {
+  Products,
+  Cart,
+  SingleProduct,
+  Main,
+  Login,
+  MyAccount,
+  Registration,
+} from "@pages";
 
 const Index = () => {
   const router = createBrowserRouter(
@@ -19,6 +27,7 @@ const Index = () => {
           <Route path="/not-found" />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/my-account" element={<MyAccount />} />
         </Route>
