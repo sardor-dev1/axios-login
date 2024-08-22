@@ -1,14 +1,4 @@
-// MUI
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-
-// ----------------------------------------------------------------
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setError, saveProducts } from "../../store/ProductsSlice";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +6,8 @@ import { useOutletContext } from "react-router-dom";
 import { addItem } from "../../store/CartSlice";
 
 import "./index.scss";
-export default function index() {
+
+export default function Index() {
   const { sortBy, selectedBrand, selectedColor, searchBy } = useOutletContext();
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((store) => store.products);
@@ -51,7 +42,7 @@ export default function index() {
         const products = await response.json();
         dispatch(saveProducts(products));
       } catch (error) {
-        dispatch(setError(error.massage));
+        dispatch(setError(error.message));
       } finally {
         dispatch(setLoading(false));
       }
@@ -80,80 +71,53 @@ export default function index() {
   });
 
   return (
-    <div className="">
+    <div className="flex flex-wrap justify-center gap-4">
       {loading && <p>Loading products...</p>}
-      <ul className="products">
-        {filteredProducts.map((p) => (
-          <li className="products__card" key={p.id}>
-            <Card sx={{ maxWidth: 345 }}>
-              <div
-                className="cursor-pointer"
-                onClick={() => navigate(`product/${p.id}`)}
+      {filteredProducts.map((p) => (
+        <div
+          className="card w-96 bg-base-100 shadow-xl"
+          key={p.id}
+          onClick={() => navigate(`product/${p.id}`)}
+        >
+          <figure className="cursor-pointer">
+            <img
+              src={p.image_url}
+              alt={p.name}
+              className="object-contain h-60 w-full"
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">{p.name}</h2>
+            <p>{p.description}</p>
+            <p>Price: {p.price}</p>
+            <p>Brand: {p.brand_name}</p>
+            <div className="flex gap-2">
+              {p.color_options.map((color, index) => (
+                <div
+                  key={index}
+                  className="w-5 h-5 rounded-full border border-black"
+                  style={{ background: color }}
+                ></div>
+              ))}
+            </div>
+            <div className="card-actions justify-end">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAdd(p);
+                }}
+                className={`btn btn-sm ${
+                  Array.isArray(cart) && cart.find((item) => item.id === p.id)
+                    ? "btn-disabled"
+                    : "btn-outline btn-success"
+                }`}
               >
-                <CardMedia
-                  component="img"
-                  image={p.image_url}
-                  alt={p.name}
-                  sx={{
-                    objectFit: "contain",
-                    height: "240px",
-                  }}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {p.name}
-                  </Typography>
-                  <div className="flex flex-col gap-1 pb-2">
-                    <Typography variant="body2" color="text.secondary">
-                      {p.description}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Price: {p.price}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Brand: {p.brand_name}
-                    </Typography>
-                  </div>
-                  <ul className="flex gap-1">
-                    {p.color_options.map((color, index) => (
-                      <li
-                        key={index}
-                        className="w-[20px] h-[20px] rounded-full border-[1px] border-solid border-black"
-                        style={{ background: color }}
-                      ></li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </div>
-
-              <CardActions>
-                <Button
-                  onClick={() => handleAdd(p)}
-                  disabled={
-                    Array.isArray(cart) &&
-                    cart.find((item) => item.id === p.id) !== undefined
-                  }
-                  sx={{
-                    backgroundColor: "#f5f5f5",
-                    outline: "2px solid green",
-                    color: "green",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "green",
-                      color: "white",
-                    },
-                  }}
-                  size="small"
-                  color="primary"
-                >
-                  Add to Cart
-                </Button>
-              </CardActions>
-            </Card>
-          </li>
-        ))}
-      </ul>
-      <div></div>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
