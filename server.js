@@ -5,21 +5,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const useCredentials = {
+const userCredentials = {
   userName: "John",
   password: "123",
 };
 
 app.post("/login", (req, res) => {
   if (
-    req.body.userName === useCredentials.userName &&
-    req.body.password === useCredentials.password
+    req.body.userName === userCredentials.userName &&
+    req.body.password === userCredentials.password
   ) {
-    res.status(200).send({ token: "john_123" });
+    res.status(200).send({ token: "John_123", name: "John" });
   } else {
     res.status(401).send("Invalid credentials");
   }
 });
 
-
-app.listen(8080, ()=>console.log("Server is live on port:8080"))
+app.listen(8080, () => console.log("Server is live on port:8080"));

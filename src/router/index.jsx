@@ -5,7 +5,9 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import App from "../App";
+import ProtectedRoute from "../components/protected-route";
 import { Products, Cart, SingleProduct, Main, Login, MyAccount } from "@pages";
+
 const Index = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -16,11 +18,14 @@ const Index = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/not-found" />
         </Route>
-        <Route path="/my-account" element={<MyAccount />} />
         <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/my-account" element={<MyAccount />} />
+        </Route>
       </Route>
     )
   );
   return <RouterProvider router={router} />;
 };
+
 export default Index;

@@ -5,15 +5,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
 const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searchVisible, setSearchVisible] = useState(false);
   const searchOpen = () => {
     setSearchVisible((prev) => !prev);
   };
 
-  const handleAccount = ()=> {
-    navigate("/my-account")
-  }
+  const handleAccount = () => {
+    navigate("/my-account");
+  };
+
   return (
     <header className="w-full text-black">
       <nav className="flex justify-between items-center">
@@ -30,7 +31,7 @@ const index = ({ setSortBy, sortBy, searchBy, setSearchBy }) => {
             </select>
           </div>
           <div>
-            <button onClick={()=>handleAccount()}>my-acount</button>
+            <button onClick={() => handleAccount()}>my-acount</button>
           </div>
         </div>
         <div className="flex items-center pr-2 gap-8">

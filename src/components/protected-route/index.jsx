@@ -1,13 +1,16 @@
-// import { useSelector } from "react-redux";
-// import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import MyAccount from "../../pages/my-acount";
 
-// const index = () => {
-//   const products = useSelector((store) => store.products);
+const ProtectedRoute = () => {
+  const { userData } = useSelector((state) => state.user);
+  console.log("userData", userData);
 
-//   if (products) {
-//     return <Navigate to={"/login"} />;
-//   }
-//   return <Outlet />;
-// };
+  if (!userData) {
+    return <Navigate to="/login" />;
+  }
 
-// export default index;
+  return <MyAccount />;
+};
+
+export default ProtectedRoute;

@@ -30,7 +30,7 @@ export default function Login() {
       }
       const userData = await response.json();
       dispatch(addUser(userData));
-      navigate("/");
+      navigate("/my-account");
     } catch (error) {
       dispatch(setUserError(error.message));
     } finally {

@@ -9,11 +9,11 @@ export default function index() {
   return (
     <div className="text-black">
       <button onClick={() => navigate("/cart")} className="relative">
-        {cart.length > 0 ? (
+        {/* {cart.length > 0 ? (
           <span className="absolute text-[14px] top-[-15px] right-[-17px] px-[7px] py-[2px] rounded-full bg-red-600 text-white">
             {cart.length}
           </span>
-        ) : null}
+        ) : null} */}
         <span className="">
           <Tooltip title="Cart" placement="left">
             <AddShoppingCartOutlinedIcon />
